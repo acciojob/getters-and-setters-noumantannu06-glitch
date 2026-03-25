@@ -1,14 +1,30 @@
 //complete this code
-describe('To-Do App Tests', () => {
-    beforeEach(() => {
-        // Code to set up the test, such as visiting the app
-        cy.visit('your-app-url'); // Replace with your app's URL
+describe('Person Getters/Setters To-Do App', () => {
+  beforeEach(() => {
+    cy.visit('/');  // Your HTML page with classes
+    cy.window().then((win) => {
+      win.person = new (win as any).Person('John', 25);
     });
+  });
 
-    it('should get the name', () => {
-        // Your test code here
-        cy.get('.name-selector').should('have.text', 'Expected Name'); // Replace with your actual selector and expected text
+  it('should get the name', () => {
+    cy.window().its('person.name').should('eq', 'John');
+  });
+
+  it('should change age via setter', () => {
+    cy.window().then((win) => {
+      (win as any).person.age = 30;
+      expect((win as any).person.age).to.eq(30);
     });
+  });
+
+  it('Student should study', () => {
+    cy.window().then((win) => {
+      const student = new (win as any).Student('Alice', 22);
+      student.study();  // Check console or spy
+      cy.spy(console, 'log').should('have.been.calledWith', 'Alice is studying');
+    });
+  });
 });
 
 class Person {}
