@@ -1,37 +1,15 @@
 //complete this code
-class Person {
-  private _name: string;
-  private _age: number;
+describe('To-Do App Tests', () => {
+    beforeEach(() => {
+        // Code to set up the test, such as visiting the app
+        cy.visit('your-app-url'); // Replace with your app's URL
+    });
 
-  constructor(name: string, age: number) {
-    this._name = name;
-    this._age = age;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set age(age: number) {
-    this._age = age;
-  }
-
-  get age(): number {
-    return this._age;
-  }
-}
-
-class Student extends Person {
-  study(): void {
-    console.log(`${this.name} is studying`);
-  }
-}
-
-class Teacher extends Person {
-  teach(): void {
-    console.log(`${this.name} is teaching`);
-  }
-}
+    it('should get the name', () => {
+        // Your test code here
+        cy.get('.name-selector').should('have.text', 'Expected Name'); // Replace with your actual selector and expected text
+    });
+});
 
 class Person {}
 
