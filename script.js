@@ -1,31 +1,42 @@
 //complete this code
-describe('Person Getters/Setters To-Do App', () => {
-  beforeEach(() => {
-    cy.visit('/');  // Your HTML page with classes
-    cy.window().then((win) => {
-      win.person = new (win as any).Person('John', 25);
-    });
-  });
+class Person {
+  private _name: string;
+  private _age: number;
 
-  it('should get the name', () => {
-    cy.window().its('person.name').should('eq', 'John');
-  });
+  constructor(name: string, age: number) {
+    this._name = name;
+    this._age = age;
+  }
 
-  it('should change age via setter', () => {
-    cy.window().then((win) => {
-      (win as any).person.age = 30;
-      expect((win as any).person.age).to.eq(30);
-    });
-  });
+  get name(): string {
+    return this._name;
+  }
 
-  it('Student should study', () => {
-    cy.window().then((win) => {
-      const student = new (win as any).Student('Alice', 22);
-      student.study();  // Check console or spy
-      cy.spy(console, 'log').should('have.been.calledWith', 'Alice is studying');
-    });
-  });
-});
+  set name(name: string) {
+    this._name = name;
+  }
+
+  get age(): number {
+    return this._age;
+  }
+
+  set age(age: number) {
+    this._age = age;
+  }
+}
+
+class Student extends Person {
+  study(): void {
+    console.log(`${this.name} is studying`);
+  }
+}
+
+class Teacher extends Person {
+  teach(): void {
+    console.log(`${this.name} is teaching`);
+  }
+}
+
 
 class Person {}
 
